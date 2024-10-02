@@ -1784,6 +1784,10 @@ list_vods()
     local vodData
     vodData="$(jq -r .data[${whileCounter}] <<< "${tmpJson}")"
 
+    if [[ "${vodData}" == "" ]]; then
+      exit_script_on_failure "${localizedStrings[1]}."
+    fi
+
     while [[ "${vodData}" != "null" ]]; do
       # Do not use subshells when debugging
       if [[ "${DEBUGGING}" == "on" ]]; then
